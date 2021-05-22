@@ -1,0 +1,102 @@
+$title-color:#31363a;
+$title-color-underline:#2b2f32;
+$list-hover-color: #f5f5f5;
+$create-btn-color:#014199;
+$create-author:#0a4438;
+$input-field-border-color:#959595;
+$extra-small-device-size:576px;
+
+.reading-area{
+   min-height: 100vh;
+  .author-Book-title {
+      color: $title-color;
+      border-bottom: 2px solid $title-color-underline;
+      font-weight: 500;
+    }
+
+    .empty-list {
+      font-size: 1.2em;
+      font-style: italic;
+    }
+
+    .author-book-ul {
+
+      li {
+        margin: 0;
+        font-size: 1.2em;
+        list-style: none;
+
+        .author-book-icons {
+          text-align: right;
+          padding-right: 25px;
+          display: none;
+
+          i {
+            cursor: pointer;
+          }
+        }
+
+        &:hover {
+          background-color: $list-hover-color;
+
+          .author-book-icons {
+            display: block;
+          }
+        }
+      }
+    }
+
+    .add-author-book {
+      i {
+        color: $create-btn-color;
+      }
+
+      label {
+        font-size: 1.2em;
+        font-weight: 500;
+        vertical-align: middle;
+        cursor: pointer;
+      }
+
+      cursor: pointer;
+    }
+
+    .create-author-book {
+      h3 {
+        color: $create-author;
+        border-bottom: 2px solid #0c453e;
+        display: inline-block;
+        font-size: 1.5em;
+      }
+
+      i {
+        cursor: pointer;
+      }
+
+      .form-label {
+        font-size: 0.7em;
+      }
+
+      .form-control {
+        border-radius: unset;
+        border: 2px solid $input-field-border-color;
+      }
+
+      .create-btn {
+        background-color: $create-btn-color;
+        border-radius: 6px;
+        float: right;
+        font-size: 1.1em;
+      }
+
+      .formInputs {
+        margin-right: 0;
+        margin-left: 3rem;
+      }
+
+      .formCloseButton {
+        text-align: right;
+      }
+    }
+
+}
