@@ -57,11 +57,11 @@ $extra-small-device-size:576px;
         vertical-align: middle;
         cursor: pointer;
       }
-
       cursor: pointer;
     }
 
     .create-author-book {
+
       h3 {
         color: $create-author;
         border-bottom: 2px solid #0c453e;
@@ -98,5 +98,19 @@ $extra-small-device-size:576px;
         text-align: right;
       }
     }
+}
+@media only screen and (max-width:$extra-small-device-size) {
+  .reading-area {
+    font-size: 0.8em;
 
+      .author-book-title {
+        font-size: 1.6em;
+      }
+
+      .create-author-book {
+        .form-label {
+          font-size: 0.9em;
+        }
+      }
+  }
 }

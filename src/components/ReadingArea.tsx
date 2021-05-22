@@ -3,6 +3,8 @@ import Authors from "./Authors/Authors";
 import {IAuthors} from "../types/LibraryTypes";
 import React, {useEffect, useState} from "react";
 import Swal from 'sweetalert2';
+import Books from "./Books/Books";
+
 
 const LibraryContent: React.FC = () => {
     const authorsList: IAuthors [] = [{name: 'Author 1'}, {name: 'Author 2'}, {name: 'Author 3'}];
@@ -11,7 +13,6 @@ const LibraryContent: React.FC = () => {
     const [authorToUpdateIndex, setAuthorToUpdateIndex] = useState<number | null>(null);
     const [formVisible, setFormVisibility] = useState(false);
 
-
     const handleOnClickAddAuthor = () => {
         setFormVisibility(true);
         if(authorToUpdate){
@@ -19,6 +20,7 @@ const LibraryContent: React.FC = () => {
             setAuthorToUpdateIndex(null);
         }
     }
+
     useEffect(() => {
         if (!authorToUpdate) {
             return;
@@ -49,7 +51,8 @@ const LibraryContent: React.FC = () => {
                     icon: 'success',
                     title: 'Author Deleted',
                     showConfirmButton: false,
-                    timer: 1500
+                    timer: 1500,
+                    toast: true
                 });
             }
         })
@@ -67,7 +70,8 @@ const LibraryContent: React.FC = () => {
             icon: 'success',
             title: 'Author Updated',
             showConfirmButton: false,
-            timer: 1500
+            timer: 1500,
+            toast: true
         });
         setAuthorToUpdate(null);
         setAuthorToUpdateIndex(null);
@@ -93,6 +97,7 @@ const LibraryContent: React.FC = () => {
             position: 'top-end',
             icon: 'success',
             title: 'New Author Added',
+            toast: true,
             showConfirmButton: false,
             timer: 1500
         });
@@ -101,9 +106,8 @@ const LibraryContent: React.FC = () => {
     return (
         <Row className='reading-area'>
             <Col xs={{span: 12, order: 2}} md={{span: 6, order: 1}} className='bookSection'>
-               books
+                <Books authors={authors}/>
             </Col>
-
 
             <Col xs={{span: 12, order: 1}} md={{span: 6, order: 1}} className='authorSection'>
                 <Authors authors={authors}
