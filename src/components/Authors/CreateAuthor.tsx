@@ -2,7 +2,7 @@ import React, {FormEvent, useEffect, useState} from "react";
 import {Button, Col, Form, Row} from "react-bootstrap";
 import {XCircle} from "react-feather";
 import {IAuthors} from "../../types/LibraryTypes";
-
+import Swal from 'sweetalert2';
 
 type createAuthorProps = {
     onFormClose: () => void
@@ -30,6 +30,14 @@ const CreateAuthor: React.FC<createAuthorProps> = (props) => {
     const handleOnSubmit = (event: FormEvent) => {
         event.preventDefault();
         if (!authorName || authorName === '') {
+            Swal.fire({
+                position: 'top-end',
+                icon: 'warning',
+                title: 'Author name is not valid',
+                showConfirmButton: false,
+                timer: 1500,
+                toast: true
+            });
             return;
         }
         if (authorToUpdate) {
@@ -44,7 +52,7 @@ const CreateAuthor: React.FC<createAuthorProps> = (props) => {
     }
 
     return (
-        <Row className='create-author-book mx-3 my-4'>
+        <Row className='create-author-book mx-3 my-5'>
             <Col xs={12} md={10} lg={8}>
                 <Row>
                     <Col xs={10}>
