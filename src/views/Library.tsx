@@ -1,14 +1,17 @@
 import React from "react";
 import { Container } from 'react-bootstrap';
 import Welcome from "../components/Welcome";
-import '../assets/styles/main.scss'
+import ReadingArea from "../components/ReadingArea";
+
 
 const Library: React.FC = () => {
     return(
+        <React.Fragment>
         <Container fluid={true}>
-           <Welcome />
-          {/*  <LibraryContent />*/}
+           <Welcome/>
+          <ReadingArea/>
         </Container>
+        </React.Fragment>
     )
 };
 
