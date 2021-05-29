@@ -26,7 +26,7 @@ const Author : React.FC<AuthorProps> = (props) => {
                     > <Edit className='text-warning'/> </i>
                     <i
                         onClick={()=> props.onAuthorDeleted(index - 1)}
-                    ><Trash2 className='text-danger mx-2'/> </i>
+                    ><Trash2 className='text-danger'/> </i>
                 </Col>
             </Row>
         </li>

@@ -101,8 +101,6 @@ const CreateBook: React.FC<BooksProps> = (props) => {
             setAuthor(null);
             return;
         }
-        console.log(bookToUpdateIndex);
-        console.log(books);
         setName(books[bookToUpdateIndex].name);
         setPrice(books[bookToUpdateIndex].price);
         const goingToUpdateAuthor: AuthorsInDropDown = {
@@ -119,13 +117,13 @@ const CreateBook: React.FC<BooksProps> = (props) => {
                     <Col xs={10}>
                         <h3>{bookToUpdateIndex !== null ? "Update Book" : "Create Book"}</h3>
                     </Col>
-                    <Col xs={2} className='formCloseButton'>
+                    <Col xs={2} className='form-close-button'>
                         <i onClick={props.handleOnFormClose}><XCircle/></i>
                     </Col>
                 </Row>
                 <Row>
                     <Col className='my-4'>
-                        <Form className='formInputs' noValidate validated={validated} onSubmit={handleOnSubmit}>
+                        <Form className='form-inputs' noValidate validated={validated} onSubmit={handleOnSubmit}>
                             <Form.Group controlId="bookName">
                                 <Form.Label>Title of the Book</Form.Label>
                                 <Form.Control type="text"
