@@ -30,7 +30,7 @@
       .author-book-icons {
         text-align: right;
         padding-right: 25px;
-        //display: none;
+        display: none;
 
         i {
           cursor: pointer;
@@ -118,6 +118,14 @@
 
     .author-section {
       padding: 0 1em 0 1em;
+    }
+
+    .author-book-ul {
+      li {
+        .author-book-icons {
+          display: block;
+        }
+      }
     }
 
     .book-section {

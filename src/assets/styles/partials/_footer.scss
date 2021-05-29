@@ -1,4 +1,3 @@
-
 .footer-dark {
   padding: 50px 0;
   color: #f0f9ff;
@@ -30,6 +29,11 @@
   .item{
     .social {
       text-align: center;
+      i{
+        a{
+          color: #014199;
+        }
+      }
     }
     .text {
       margin-bottom: 36px;
@@ -52,7 +56,7 @@
 }
 
 
-@media (max-width: 767px) {
+@media (max-width: $medium-device-size) {
   .footer-dark .item:not(.social) {
     text-align: center;
     padding-bottom: 20px;
@@ -64,7 +68,7 @@
 
 }
 
-@media (max-width: 991px) {
+@media (max-width: $large-device-size) {
   .footer-dark {
     .item.social {
       text-align: center;
