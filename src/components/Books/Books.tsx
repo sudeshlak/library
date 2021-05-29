@@ -8,25 +8,18 @@ import Swal from "sweetalert2";
 
 type BooksProps = {
     authors: IAuthors[]
+    books: IBooks[]
+    setBooks: (books: IBooks[]) => void
 }
 
 const Books: React.FC<BooksProps> = (props) => {
-    const bookList: IBooks[] = [{name: 'book 1', isbn: '11', author: 'z'},
-        {
-            name: 'book 2',
-            isbn: '22',
-            author: 'y'
-        }, {name: 'book 3', isbn: '33', author: 'x'}];
-
-    const [books, setBooks] = useState(bookList);
+    const {setBooks, books} = props;
     const [formVisible, setFormVisibility] = useState<false | true>(false);
-    const [bookToUpdate, setBookToUpdate] = useState<IBooks | null>(null);
     const [bookToUpdateIndex, setBookToUpdateIndex] = useState<number | null>(null);
 
 
     const handleOnFormOpen = () => {
         setBookToUpdateIndex(null);
-        setBookToUpdate(null);
         if (!formVisible) {
             setFormVisibility(true);
         }
@@ -34,12 +27,11 @@ const Books: React.FC<BooksProps> = (props) => {
 
     const handleOnFormClose = () => {
         setFormVisibility(false);
-        setBookToUpdate(null);
         setBookToUpdateIndex(null);
     }
 
-    const handleBookAdded = (name: string, isbn: string, author: string) => {
-        const newBook: IBooks = {name, isbn, author};
+    const handleBookAdded = (name: string, price: number, author: string) => {
+        const newBook: IBooks = {name, price, author};
         setBooks([...books, newBook]);
         Swal.fire({
             position: 'top-end',
@@ -48,14 +40,13 @@ const Books: React.FC<BooksProps> = (props) => {
             toast: true,
             showConfirmButton: false,
             timer: 1500
-        });
+        }).then(() => {});
     }
 
     const deleteBook = (index: number | null) => {
         if (index === null) {
             return;
         }
-
         Swal.fire({
             title: 'Do you want delete :?',
             showDenyButton: true,
@@ -70,12 +61,11 @@ const Books: React.FC<BooksProps> = (props) => {
                 if (bookToUpdateIndex) {
                     if (bookToUpdateIndex > index) {
                         setBookToUpdateIndex(bookToUpdateIndex - 1);
+
+                    } else if (bookToUpdateIndex === index) {
+                        setBookToUpdateIndex(null);
+                        setFormVisibility(false);
                     }
-                }
-                if (bookToUpdateIndex === index) {
-                    setBookToUpdateIndex(null);
-                    setBookToUpdate(null);
-                    setFormVisibility(false);
                 }
                 Swal.fire({
                     position: 'top-end',
@@ -84,22 +74,22 @@ const Books: React.FC<BooksProps> = (props) => {
                     showConfirmButton: false,
                     timer: 1500,
                     toast: true
-                });
+                }).then(() => {});
             }
         })
     }
 
     const HandleOnUpdateRequest = (bookIndex: number) => {
-        setBookToUpdate(books[bookIndex]);
+
         setBookToUpdateIndex(bookIndex);
     }
 
     useEffect(() => {
-        if (!bookToUpdate) {
+        if (bookToUpdateIndex === null) {
             return;
         }
         setFormVisibility(true);
-    }, [bookToUpdate]);
+    }, [bookToUpdateIndex]);
 
     const handleUpdatedBook = (updatedBook: IBooks) => {
 
@@ -107,20 +97,19 @@ const Books: React.FC<BooksProps> = (props) => {
         if (bookToUpdateIndex === null) {
             return;
         }
-            allBooks.splice(bookToUpdateIndex, 1, updatedBook);
-            setBooks(allBooks);
-            Swal.fire({
-                position: 'top-end',
-                icon: 'success',
-                title: 'Book Updated',
-                showConfirmButton: false,
-                timer: 1500,
-                toast: true
-            });
-            setBookToUpdate(null);
-            setBookToUpdateIndex(null);
-            setFormVisibility(false);
+        allBooks.splice(bookToUpdateIndex, 1, updatedBook);
+        setBooks(allBooks);
+        Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: 'Book Updated',
+            showConfirmButton: false,
+            timer: 1500,
+            toast: true
+        }).then(() => {});
 
+        setBookToUpdateIndex(null);
+        setFormVisibility(false);
     }
     return (
         <div>
@@ -135,8 +124,9 @@ const Books: React.FC<BooksProps> = (props) => {
             {formVisible && <CreateBooks authors={props.authors}
                                          handleOnFormClose={handleOnFormClose}
                                          onBookAdded={handleBookAdded}
-                                         bookToUpdate={bookToUpdate}
                                          onBookUpdated={handleUpdatedBook}
+                                         books={books}
+                                         bookToUpdateIndex={bookToUpdateIndex}
             />}
 
         </div>

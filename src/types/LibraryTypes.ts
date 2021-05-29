@@ -7,6 +7,6 @@ export interface AuthorsInDropDown{
 }
 export interface IBooks{
     name:string,
-    isbn:string,
+    price:number,
     author:string
 }

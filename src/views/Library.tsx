@@ -6,12 +6,12 @@ import ReadingArea from "../components/ReadingArea";
 
 const Library: React.FC = () => {
     return(
-        <React.Fragment>
+
         <Container fluid={true}>
            <Welcome/>
           <ReadingArea/>
         </Container>
-        </React.Fragment>
+
     )
 };
 
