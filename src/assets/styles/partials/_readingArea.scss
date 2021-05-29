@@ -34,6 +34,7 @@
 
         i {
           cursor: pointer;
+          margin-left: 0.9em;
         }
       }
 
@@ -114,6 +115,15 @@
   .reading-area {
     font-size: 0.8em;
     min-height: auto;
+    .author-book-ul {
+      li {
+        .author-book-icons {
+          display:block;
+        }
+
+      }
+
+    }
 
     .author-section {
       padding: 0 1em 0 1em;
