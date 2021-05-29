@@ -1,116 +1,141 @@
-$title-color:#31363a;
-$title-color-underline:#2b2f32;
-$list-hover-color: #f5f5f5;
-$create-btn-color:#014199;
-$create-author:#0a4438;
-$input-field-border-color:#959595;
-$extra-small-device-size:576px;
+.reading-area {
+  min-height: 100vh;
 
-.reading-area{
-   min-height: 100vh;
+  .book-section {
+    padding: 0 3em 0 2em;
+  }
+
+  .author-section {
+    padding: 0 2em 0 3em;
+  }
+
   .author-Book-title {
-      color: $title-color;
-      border-bottom: 2px solid $title-color-underline;
-      font-weight: 500;
-    }
+    color: $title-color;
+    border-bottom: 2px solid $title-color-underline;
+    font-weight: 500;
+  }
 
-    .empty-list {
+  .empty-list {
+    font-size: 1.2em;
+    font-style: italic;
+  }
+
+  .author-book-ul {
+
+    li {
+      margin: 0;
       font-size: 1.2em;
-      font-style: italic;
-    }
+      list-style: none;
 
-    .author-book-ul {
+      .author-book-icons {
+        text-align: right;
+        padding-right: 25px;
+        display: none;
 
-      li {
-        margin: 0;
-        font-size: 1.2em;
-        list-style: none;
+        i {
+          cursor: pointer;
+        }
+      }
+
+      &:hover {
+        background-color: $list-hover-color;
 
         .author-book-icons {
-          text-align: right;
-          padding-right: 25px;
-          display: none;
-
-          i {
-            cursor: pointer;
-          }
-        }
-
-        &:hover {
-          background-color: $list-hover-color;
-
-          .author-book-icons {
-            display: block;
-          }
+          display: block;
         }
       }
     }
+  }
 
-    .add-author-book {
-      i {
-        color: $create-btn-color;
-      }
+  .add-author-book {
+    i {
+      color: $create-btn-color;
+    }
 
-      label {
-        font-size: 1.2em;
-        font-weight: 500;
-        vertical-align: middle;
-        cursor: pointer;
-      }
+    label {
+      font-size: 1.2em;
+      font-weight: 500;
+      vertical-align: middle;
       cursor: pointer;
     }
 
+    cursor: pointer;
+  }
+
+  .create-author-book {
+
+    h3 {
+      color: $create-author;
+      border-bottom: 2px solid #0c453e;
+      display: inline-block;
+      font-size: 1.5em;
+    }
+
+    i {
+      cursor: pointer;
+    }
+
+    .form-label {
+      font-size: 0.7em;
+      margin-bottom: 1px;
+      margin-top: 10px
+    }
+
+    .form-control {
+      border-radius: unset;
+      border: 2px solid $input-field-border-color;
+    }
+
+    .create-btn {
+      background-color: $create-btn-color;
+      border-radius: 6px;
+      float: right;
+      font-size: 1.1em;
+    }
+
+    .formInputs {
+      margin-right: 0;
+      margin-left: 3rem;
+    }
+
+    .formCloseButton {
+      text-align: right;
+    }
+
+    .select-invalid {
+      font-size: 0.9rem;
+      padding-top: 5px;
+      color: #dc3545;
+    }
+  }
+}
+
+@media only screen and (max-width: $extra-small-device-size) {
+  .reading-area {
+    font-size: 0.8em;
+    min-height: auto;
+
+    .author-section {
+      padding: 0 1em 0 1em;
+    }
+
+    .book-section {
+      padding: 0 1em 0 1em;
+    }
+
+    .author-book-title {
+      font-size: 1.6em;
+    }
+
     .create-author-book {
-
-      h3 {
-        color: $create-author;
-        border-bottom: 2px solid #0c453e;
-        display: inline-block;
-        font-size: 1.5em;
-      }
-
-      i {
-        cursor: pointer;
-      }
-
       .form-label {
-        font-size: 0.7em;
-      }
-
-      .form-control {
-        border-radius: unset;
-        border: 2px solid $input-field-border-color;
-      }
-
-      .create-btn {
-        background-color: $create-btn-color;
-        border-radius: 6px;
-        float: right;
-        font-size: 1.1em;
+        font-size: 0.9em;
       }
 
       .formInputs {
-        margin-right: 0;
-        margin-left: 3rem;
+        margin-left: 0rem;
       }
 
-      .formCloseButton {
-        text-align: right;
-      }
     }
-}
-@media only screen and (max-width:$extra-small-device-size) {
-  .reading-area {
-    font-size: 0.8em;
-
-      .author-book-title {
-        font-size: 1.6em;
-      }
-
-      .create-author-book {
-        .form-label {
-          font-size: 0.9em;
-        }
-      }
   }
 }

@@ -1,105 +1,123 @@
-import React, {FormEvent, useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Button, Col, Form, Row} from "react-bootstrap";
 import {XCircle} from "react-feather";
 import Select from 'react-select/creatable';
 import {IAuthors, AuthorsInDropDown, IBooks} from "../../types/LibraryTypes";
+import NumberFormat from 'react-number-format';
 import Swal from "sweetalert2";
 
 type BooksProps = {
     authors: IAuthors[]
     handleOnFormClose: () => void
-    onBookAdded: (name: string, isbn: string, author: string) => void
-    bookToUpdate: IBooks | null
+    onBookAdded: (name: string, price: number, author: string) => void
     onBookUpdated: (bookUpdated: IBooks) => void
+    books: IBooks[]
+    bookToUpdateIndex: number | null
 }
 const CreateBook: React.FC<BooksProps> = (props) => {
-    const {authors} = props;
-
+    const {authors, books, bookToUpdateIndex} = props;
     const authorsOfOptionList: AuthorsInDropDown[] = authors.map(
         (author) => {
             return {value: author.name, label: author.name}
         });
     const [name, setName] = useState<string | null>(null);
-    const [isbn, setIsbn] = useState<string | null>(null);
+    const [price, setPrice] = useState<number | null>(null);
     const [inputAuthor, setAuthor] = useState<null | AuthorsInDropDown>(null);
+    const [validated, setValidated] = useState(false);
 
     const handleOnBookNameChanged = (name: string) => {
         setName(name);
     }
-    const handleOnIsbnChanged = (isbn: string) => {
-        setIsbn(isbn);
+    const handleOnPriceChanged = (price: number | undefined) => {
+        if (!price) {
+            setPrice(null);
+        } else {
+            setPrice(price);
+        }
     }
     const handleOnAuthorChanged = (author: null | AuthorsInDropDown) => {
         setAuthor(author);
     }
-    const handleOnSubmit = (event: FormEvent) => {
+    const isInBooks = (booksName: string) => {
+        const bBooks: String[] = books.map(author => author.name);
+        return bBooks.indexOf(booksName);
+    }
+    const handleOnSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
+        const form = event.currentTarget;
+        if (form.checkValidity() === false) {
+            event.stopPropagation();
+        }
+        setValidated(true);
 
-        if (!name || name === "" || !isbn || isbn === "" || !inputAuthor) {
-            if (!name || name === "") {
-                Swal.fire({
-                    position: 'top-end',
-                    icon: 'warning',
-                    title: 'Book name is not valid',
-                    showConfirmButton: false,
-                    timer: 1500,
-                    toast: true
-                });
-            }else if (!isbn || isbn === "") {
-                Swal.fire({
-                    position: 'top-end',
-                    icon: 'warning',
-                    title: 'ISBN is not valid',
-                    showConfirmButton: false,
-                    timer: 1500,
-                    toast: true
-                });
-
-            }else if (!inputAuthor) {
-                Swal.fire({
-                    position: 'top-end',
-                    icon: 'warning',
-                    title: 'Author name is not valid',
-                    showConfirmButton: false,
-                    timer: 1500,
-                    toast: true
-                });
-            }
+        if (!name || name === "" || !price || price <= 0 || !inputAuthor) {
             return;
         }
-        if (props.bookToUpdate) {
-            const updatedBook: IBooks = {...props.bookToUpdate, name: name, isbn: isbn, author: inputAuthor.value};
+        if (bookToUpdateIndex) {
+            if (isInBooks(name) > -1 && isInBooks(name) !== bookToUpdateIndex) {
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'error',
+                    title: 'Book already exists',
+                    showConfirmButton: false,
+                    timer: 2000,
+                    toast: true
+                }).then(() => {
+                });
+                return;
+            }
+            const updatedBook: IBooks = {
+                ...books[bookToUpdateIndex],
+                name: name,
+                price: price,
+                author: inputAuthor.value
+            };
             props.onBookUpdated(updatedBook);
             return;
         }
-        props.onBookAdded(name, isbn, inputAuthor.value);
+        if (isInBooks(name) > -1) {
+            Swal.fire({
+                position: 'top-end',
+                icon: 'error',
+                title: 'Book already exists',
+                showConfirmButton: false,
+                timer: 2000,
+                toast: true
+            }).then(() => {
+            });
+            return;
+        }
+        props.onBookAdded(name, price, inputAuthor.value);
+        setValidated(false);
         setName('');
-        setIsbn('');
+        setPrice(null);
         setAuthor(null);
     }
 
     useEffect(() => {
-        if (!props.bookToUpdate) {
+        if (bookToUpdateIndex === null) {
             setName('');
-            setIsbn('');
+            setPrice(null);
             setAuthor(null);
             return;
         }
-        setName(props.bookToUpdate.name);
-        setIsbn(props.bookToUpdate.isbn);
+        console.log(bookToUpdateIndex);
+        console.log(books);
+        setName(books[bookToUpdateIndex].name);
+        setPrice(books[bookToUpdateIndex].price);
         const goingToUpdateAuthor: AuthorsInDropDown = {
-            value: props.bookToUpdate.author,
-            label: props.bookToUpdate.author
+            value: books[bookToUpdateIndex].author,
+            label: books[bookToUpdateIndex].author
         }
         setAuthor(goingToUpdateAuthor);
-    }, [props.bookToUpdate])
+    }, [bookToUpdateIndex]);
 
     return (
         <Row className='create-author-book mx-3 my-5'>
-            <Col xs={12} md={10} lg={8}>
+            <Col xs={12} md={11} lg={8}>
                 <Row>
                     <Col xs={10}>
-                        <h3>{props.bookToUpdate ? "Update Book" : "Create Book"}</h3>
+                        <h3>{bookToUpdateIndex !== null ? "Update Book" : "Create Book"}</h3>
                     </Col>
                     <Col xs={2} className='formCloseButton'>
                         <i onClick={props.handleOnFormClose}><XCircle/></i>
@@ -107,24 +125,35 @@ const CreateBook: React.FC<BooksProps> = (props) => {
                 </Row>
                 <Row>
                     <Col className='my-4'>
-                        <Form className='formInputs' onSubmit={handleOnSubmit}>
+                        <Form className='formInputs' noValidate validated={validated} onSubmit={handleOnSubmit}>
                             <Form.Group controlId="bookName">
                                 <Form.Label>Title of the Book</Form.Label>
                                 <Form.Control type="text"
                                               placeholder=""
+                                              required
                                               value={name ? name : ''}
                                               onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
                                                   handleOnBookNameChanged(event.target.value)}
                                 />
+                                <Form.Control.Feedback type="invalid">
+                                    Please provide a valid Book Name.
+                                </Form.Control.Feedback>
                             </Form.Group>
-                            <Form.Group controlId="isbn">
-                                <Form.Label>ISBN</Form.Label>
-                                <Form.Control type="text"
-                                              value={isbn ? isbn : ''}
+                            <Form.Group controlId="price">
+                                <Form.Label>Price</Form.Label>
+                                <NumberFormat thousandSeparator={true}
+                                              className='form-control'
+                                              prefix={'$'}
+                                              required
+                                              value={price ? price : ''}
                                               placeholder=""
-                                              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                                                  handleOnIsbnChanged(event.target.value)}
+                                              onValueChange={(values) => {
+                                                  handleOnPriceChanged(values.floatValue)
+                                              }}
                                 />
+                                <Form.Control.Feedback type="invalid">
+                                    Please provide a valid Price.
+                                </Form.Control.Feedback>
                             </Form.Group>
                             <Form.Group controlId="authorName">
                                 <Form.Label>Author</Form.Label>
@@ -161,8 +190,12 @@ const CreateBook: React.FC<BooksProps> = (props) => {
                                     }}
                                 />
                             </Form.Group>
+                            {(!inputAuthor && validated === true) &&
+                            <span className='select-invalid'>
+                                Please select an Author.
+                            </span>}
                             <Button type="submit"
-                                    className='create-btn mt-3 py-1 px-4'>{props.bookToUpdate ? "Update" : "Create"}
+                                    className='create-btn mt-3 py-1 px-4'>{bookToUpdateIndex ? "Update" : "Create"}
                             </Button>
                         </Form>
                     </Col>
