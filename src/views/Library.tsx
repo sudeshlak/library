@@ -1,17 +1,16 @@
 import React from "react";
-import { Container } from 'react-bootstrap';
+import {Container} from 'react-bootstrap';
 import Welcome from "../components/Welcome";
 import ReadingArea from "../components/ReadingArea";
-
+import Footer from "../components/Footer";
 
 const Library: React.FC = () => {
-    return(
-
+    return (
         <Container fluid={true}>
-           <Welcome/>
-          <ReadingArea/>
+            <Welcome/>
+            <ReadingArea/>
+            <Footer/>
         </Container>
-
     )
 };
 

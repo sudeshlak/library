@@ -34,7 +34,7 @@
 
         i {
           cursor: pointer;
-          margin-left: 0.9em;
+          margin-left: 10px;
         }
       }
 
@@ -99,7 +99,7 @@
       margin-left: 3rem;
     }
 
-    .formCloseButton {
+    .form-close-button {
       text-align: right;
     }
 
@@ -115,18 +115,17 @@
   .reading-area {
     font-size: 0.8em;
     min-height: auto;
-    .author-book-ul {
-      li {
-        .author-book-icons {
-          display:block;
-        }
-
-      }
-
-    }
 
     .author-section {
       padding: 0 1em 0 1em;
+    }
+
+    .author-book-ul {
+      li {
+        .author-book-icons {
+          display: block;
+        }
+      }
     }
 
     .book-section {
@@ -142,7 +141,7 @@
         font-size: 0.9em;
       }
 
-      .formInputs {
+      .form-inputs {
         margin-left: 0rem;
       }
 

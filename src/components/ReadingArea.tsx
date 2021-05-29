@@ -4,7 +4,6 @@ import {IAuthors, IBooks} from "../types/LibraryTypes";
 import React, {useState} from "react";
 import Books from "./Books/Books";
 
-
 const LibraryContent: React.FC = () => {
     const authorsList: IAuthors [] = [{name: 'Author 1'}, {name: 'Author 2'}, {name: 'Author 3'}];
     const [authors, setAuthors] = useState(authorsList);
@@ -16,7 +15,6 @@ const LibraryContent: React.FC = () => {
         }, {name: 'book 3', price: 250.60, author: 'Author 3'}];
 
     const [books, setBooks] = useState(bookList);
-
 
     return (
         <Row className='reading-area'>
@@ -34,7 +32,6 @@ const LibraryContent: React.FC = () => {
                          setBooks={setBooks}
                 />
             </Col>
-
         </Row>
     )
 }

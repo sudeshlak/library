@@ -40,7 +40,8 @@ const Books: React.FC<BooksProps> = (props) => {
             toast: true,
             showConfirmButton: false,
             timer: 1500
-        }).then(() => {});
+        }).then(() => {
+        });
     }
 
     const deleteBook = (index: number | null) => {
@@ -74,13 +75,13 @@ const Books: React.FC<BooksProps> = (props) => {
                     showConfirmButton: false,
                     timer: 1500,
                     toast: true
-                }).then(() => {});
+                }).then(() => {
+                });
             }
         })
     }
 
     const HandleOnUpdateRequest = (bookIndex: number) => {
-
         setBookToUpdateIndex(bookIndex);
     }
 
@@ -92,7 +93,6 @@ const Books: React.FC<BooksProps> = (props) => {
     }, [bookToUpdateIndex]);
 
     const handleUpdatedBook = (updatedBook: IBooks) => {
-
         const allBooks: IBooks[] = books.slice();
         if (bookToUpdateIndex === null) {
             return;
@@ -106,7 +106,8 @@ const Books: React.FC<BooksProps> = (props) => {
             showConfirmButton: false,
             timer: 1500,
             toast: true
-        }).then(() => {});
+        }).then(() => {
+        });
 
         setBookToUpdateIndex(null);
         setFormVisibility(false);
@@ -114,7 +115,6 @@ const Books: React.FC<BooksProps> = (props) => {
     return (
         <div>
             <BookTitle/>
-
             <BooksList bookList={books}
                        onBookDeleted={deleteBook}
                        onUpdateRequest={HandleOnUpdateRequest}
@@ -128,7 +128,6 @@ const Books: React.FC<BooksProps> = (props) => {
                                          books={books}
                                          bookToUpdateIndex={bookToUpdateIndex}
             />}
-
         </div>
     );
 }
