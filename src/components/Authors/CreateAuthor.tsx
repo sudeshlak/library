@@ -74,13 +74,13 @@ const CreateAuthor: React.FC<createAuthorProps> = (props) => {
                     <Col xs={10}>
                         <h3>{authorToUpdate ? 'Update' : 'Create'} Author</h3>
                     </Col>
-                    <Col xs={2} className='formCloseButton'>
+                    <Col xs={2} className='form-close-button'>
                         <i><XCircle onClick={props.onFormClose}/></i>
                     </Col>
                 </Row>
                 <Row>
                     <Col className='my-4'>
-                        <Form className='formInputs' noValidate validated={validated} onSubmit={handleOnSubmit}>
+                        <Form className='form-inputs' noValidate validated={validated} onSubmit={handleOnSubmit}>
                             <Form.Group controlId="authorName">
                                 <Form.Label>Name of Author</Form.Label>
                                 <Form.Control type="text" placeholder=""
