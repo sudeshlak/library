@@ -9,11 +9,11 @@ type createAuthorProps = {
     onAuthorAdded: (author: IAuthors) => void
     authorToUpdate: IAuthors | null
     onAuthorUpdated: (updatedAuthor: IAuthors) => void
-    authors:IAuthors[]
+    authors: IAuthors[]
 }
 
 const CreateAuthor: React.FC<createAuthorProps> = (props) => {
-    const {authorToUpdate,authors} = props;
+    const {authorToUpdate, authors} = props;
     const [authorName, setAuthorName] = useState<string | null>(null);
     const [validated, setValidated] = useState(false);
 

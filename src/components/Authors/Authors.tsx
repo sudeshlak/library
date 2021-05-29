@@ -56,6 +56,7 @@ const Authors: React.FC<AuthorsProps> = (props) => {
                 const allAuthors: IAuthors[] = authors.slice();
                 allAuthors.splice(index, 1);
                 setAuthors(allAuthors);
+
                 if (authorToUpdateIndex === index) {
                     setAuthorToUpdateIndex(null);
                     setFormVisibility(false);

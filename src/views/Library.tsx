@@ -4,7 +4,6 @@ import Welcome from "../components/Welcome";
 import ReadingArea from "../components/ReadingArea";
 import Footer from "../components/Footer";
 
-
 const Library: React.FC = () => {
     return (
         <Container fluid={true}>

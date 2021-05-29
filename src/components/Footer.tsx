@@ -39,7 +39,6 @@ const Footer: React.FC = () => {
                                 <i><a href="www.instagram.com"> <Mail/></a> </i>
                                 <i><a href="www.instagram.com"> <Instagram/></a> </i>
                             </div>
-
                         </Col>
                     </Row>
                     <p className="copyright">Sudesh Welikotuwa © 2018</p>
