@@ -23,20 +23,20 @@ const CreateAuthor: React.FC<createAuthorProps> = (props) => {
             return;
         }
         setAuthorName(authorToUpdate.name);
-    }, [authorToUpdate])
+    }, [authorToUpdate]);
 
     const handleOnAuthorNameChanged = (name: string) => {
         setAuthorName(name);
     }
     const isInAuthors = (authorName: string) => {
         const bAuthors: String[] = authors.map(author => author.name);
-        return bAuthors.includes(authorName) ? true : false;
+        return bAuthors.includes(authorName);
     }
 
     const handleOnSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const form = event.currentTarget;
-        if (form.checkValidity() === false) {
+        if (!form.checkValidity()) {
             event.stopPropagation();
         }
         setValidated(true);

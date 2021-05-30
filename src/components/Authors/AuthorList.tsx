@@ -15,13 +15,14 @@ const AuthorList: React.FC<AuthorsListProps> = (props) => {
         if (authors.length === 0) {
             return;
         }
+
         return authors.map((author: IAuthors, index: number) => {
             return <Author author={author} key={index} index={index + 1}
                            onAuthorDeleted={props.onAuthorDeleted}
                            onUpdateRequest={props.onUpdateRequest}
             />
         });
-    };
+    }
 
     return (
         <div>
@@ -29,7 +30,6 @@ const AuthorList: React.FC<AuthorsListProps> = (props) => {
                 <Col>
                     {authors.length === 0 && <label className='empty-list mb-2'>No authors listed here</label>}
                 </Col>
-
                 <ul className='author-book-ul'>
                     {renderAuthorList()}
                 </ul>

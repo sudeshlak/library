@@ -74,7 +74,7 @@ const Authors: React.FC<AuthorsProps> = (props) => {
                 });
             }
         })
-    };
+    }
 
     const handleUpdateAuthor = (updatedAuthor: IAuthors) => {
         if (authorToUpdateIndex === null) {
@@ -111,7 +111,6 @@ const Authors: React.FC<AuthorsProps> = (props) => {
         setAuthorToUpdateIndex(null);
     }
 
-
     const handleAuthorAdded = (author: IAuthors) => {
         const allAuthors: IAuthors[] = authors.slice();
         allAuthors.push(author);
@@ -125,10 +124,10 @@ const Authors: React.FC<AuthorsProps> = (props) => {
             timer: 1500
         }).then(() => {
         });
-    };
+    }
 
     return (
-        < >
+        <React.Fragment>
             <AuthorTitle/>
             <AuthorList authors={props.authors}
                         onAuthorDeleted={handleOnAuthorDeleted}
@@ -141,8 +140,8 @@ const Authors: React.FC<AuthorsProps> = (props) => {
                                           onAuthorUpdated={handleUpdateAuthor}
                                           authors={props.authors}
             />}
-        </>
-    )
+        </React.Fragment>
+    );
 }
 
-export default Authors
+export default Authors;

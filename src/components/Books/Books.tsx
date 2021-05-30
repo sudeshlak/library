@@ -17,7 +17,6 @@ const Books: React.FC<BooksProps> = (props) => {
     const [formVisible, setFormVisibility] = useState<false | true>(false);
     const [bookToUpdateIndex, setBookToUpdateIndex] = useState<number | null>(null);
 
-
     const handleOnFormOpen = () => {
         setBookToUpdateIndex(null);
         if (!formVisible) {
@@ -30,9 +29,8 @@ const Books: React.FC<BooksProps> = (props) => {
         setBookToUpdateIndex(null);
     }
 
-    const handleBookAdded = (name: string, price: number, author: string) => {
-        const newBook: IBooks = {name, price, author};
-        setBooks([...books, newBook]);
+    const handleBookAdded = (bookAdd: IBooks) => {
+        setBooks([...books, bookAdd]);
         Swal.fire({
             position: 'top-end',
             icon: 'success',
@@ -44,7 +42,7 @@ const Books: React.FC<BooksProps> = (props) => {
         });
     }
 
-    const deleteBook = (index: number | null) => {
+    const handleOnDeleteBook = (index: number | null) => {
         if (index === null) {
             return;
         }
@@ -116,7 +114,7 @@ const Books: React.FC<BooksProps> = (props) => {
         <div>
             <BookTitle/>
             <BooksList bookList={books}
-                       onBookDeleted={deleteBook}
+                       onBookDeleted={handleOnDeleteBook}
                        onUpdateRequest={HandleOnUpdateRequest}
 
             />
