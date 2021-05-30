@@ -11,7 +11,7 @@ const AddBook: React.FC<AddBookProps> = (props) => {
             <i> <Plus size='1.6em'/></i>
             <label className='mx-2'>Add Book</label>
         </div>
-    )
+    );
 }
 
 export default AddBook;

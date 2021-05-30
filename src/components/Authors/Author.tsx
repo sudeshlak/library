@@ -4,7 +4,7 @@ import {Trash2, Edit} from 'react-feather';
 import {IAuthors} from "../../types/LibraryTypes";
 
 type AuthorProps = {
-    author: IAuthors,
+    author: IAuthors
     index: number
     onAuthorDeleted: (authorIndex: number) => void
     onUpdateRequest: (authorIndex: number) => void

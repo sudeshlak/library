@@ -9,25 +9,60 @@ import Swal from "sweetalert2";
 type BooksProps = {
     authors: IAuthors[]
     handleOnFormClose: () => void
-    onBookAdded: (name: string, price: number, author: string) => void
+    onBookAdded: (bookAdd: IBooks) => void
     onBookUpdated: (bookUpdated: IBooks) => void
     books: IBooks[]
     bookToUpdateIndex: number | null
 }
+
 const CreateBook: React.FC<BooksProps> = (props) => {
     const {authors, books, bookToUpdateIndex} = props;
-    const authorsOfOptionList: AuthorsInDropDown[] = authors.map(
-        (author) => {
-            return {value: author.name, label: author.name}
-        });
     const [name, setName] = useState<string | null>(null);
     const [price, setPrice] = useState<number | null>(null);
     const [inputAuthor, setAuthor] = useState<null | AuthorsInDropDown>(null);
     const [validated, setValidated] = useState(false);
+    const [authorsOfOptionList, SetAuthorsOfOptionList] = useState<null | AuthorsInDropDown[]>(null);
+
+    const styleSelect: any = {
+        container: (base: any) => ({
+            ...base,
+            backgroundColor: '#959595',
+            padding: 2,
+        }),
+        control: (base: any) => ({
+            ...base,
+            border: 0,
+        }),
+    }
+
+    const themeSelect: any = (theme: any) => {
+        return {
+            ...theme,
+            borderRadius: 0,
+            borderWidth: 2,
+            colors: {
+                ...theme.colors,
+                primary25: '#f5f5f5',
+                primary: '#959595',
+            },
+        }
+    }
+
+    useEffect(() => {
+        if (!authors) {
+            return;
+        }
+        const dropDowns: AuthorsInDropDown[] = authors.map(
+            (author) => {
+                return {value: author.name, label: author.name}
+            });
+        SetAuthorsOfOptionList(dropDowns);
+    }, [authors]);
 
     const handleOnBookNameChanged = (name: string) => {
         setName(name);
     }
+
     const handleOnPriceChanged = (price: number | undefined) => {
         if (!price) {
             setPrice(null);
@@ -35,21 +70,23 @@ const CreateBook: React.FC<BooksProps> = (props) => {
             setPrice(price);
         }
     }
+
     const handleOnAuthorChanged = (author: null | AuthorsInDropDown) => {
         setAuthor(author);
     }
+
     const isInBooks = (booksName: string) => {
         const bBooks: String[] = books.map(author => author.name);
         return bBooks.indexOf(booksName);
     }
+
     const handleOnSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const form = event.currentTarget;
-        if (form.checkValidity() === false) {
+        if (!form.checkValidity()) {
             event.stopPropagation();
         }
         setValidated(true);
-
         if (!name || name === "" || !price || price <= 0 || !inputAuthor) {
             return;
         }
@@ -87,7 +124,8 @@ const CreateBook: React.FC<BooksProps> = (props) => {
             });
             return;
         }
-        props.onBookAdded(name, price, inputAuthor.value);
+        const addBook :IBooks = {name, price,author:inputAuthor.value};
+        props.onBookAdded(addBook);
         setValidated(false);
         setName('');
         setPrice(null);
@@ -156,39 +194,19 @@ const CreateBook: React.FC<BooksProps> = (props) => {
                             <Form.Group controlId="authorName">
                                 <Form.Label>Author</Form.Label>
                                 <Select
-
                                     value={inputAuthor}
                                     onChange={(selected: AuthorsInDropDown | null) => {
                                         handleOnAuthorChanged(selected)
                                     }}
                                     allowCreateWhileLoading
-                                    options={authorsOfOptionList}
+                                    options={authorsOfOptionList ? authorsOfOptionList : undefined}
                                     isClearable={true}
                                     isSearchable={false}
-                                    theme={theme => ({
-                                        ...theme,
-                                        borderRadius: 0,
-                                        borderWidth: 2,
-                                        colors: {
-                                            ...theme.colors,
-                                            primary25: '#f5f5f5',
-                                            primary: '#959595',
-                                        },
-                                    })}
-                                    styles={{
-                                        container: base => ({
-                                            ...base,
-                                            backgroundColor: '#959595',
-                                            padding: 2,
-                                        }),
-                                        control: base => ({
-                                            ...base,
-                                            border: 0,
-                                        }),
-                                    }}
+                                    theme={themeSelect}
+                                    styles={styleSelect}
                                 />
                             </Form.Group>
-                            {(!inputAuthor && validated === true) &&
+                            {(!inputAuthor && validated) &&
                             <span className='select-invalid'>
                                 Please select an Author.
                             </span>}

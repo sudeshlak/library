@@ -3,7 +3,6 @@ import {Container} from "react-bootstrap";
 import {Col, Row} from "react-bootstrap";
 import {Twitter, Facebook, Instagram, Mail} from "react-feather";
 
-
 const Footer: React.FC = () => {
     return (
         <Row className="footer-dark">
