@@ -13,7 +13,6 @@ const LibraryContent: React.FC = () => {
             price: 250.60,
             author: 'Author 2'
         }, {name: 'book 3', price: 250.60, author: 'Author 3'}];
-
     const [books, setBooks] = useState(bookList);
 
     return (

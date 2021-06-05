@@ -18,8 +18,12 @@ const Book: React.FC<AuthorProps> = (props) => {
                     <label>{props.index}. {props.book.name}</label>
                 </Col>
                 <Col xs={4} className='author-book-icons'>
-                    <i> <Edit className='text-warning' onClick={() => props.onUpdateRequest(props.index - 1)}/> </i>
-                    <i><Trash2 className='text-danger ' onClick={() => props.onBookDeleted(props.index - 1)}/> </i>
+                    <i> <Edit className='text-warning'
+                              onClick={() => props.onUpdateRequest(props.index - 1)}/>
+                    </i>
+                    <i><Trash2 className='text-danger '
+                               onClick={() => props.onBookDeleted(props.index - 1)}/>
+                    </i>
                 </Col>
             </Row>
         </li>
