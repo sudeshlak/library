@@ -20,8 +20,12 @@ const Author: React.FC<AuthorProps> = (props) => {
                     <label>{index}. {author.name}</label>
                 </Col>
                 <Col xs={4} className='author-book-icons'>
-                    <i onClick={() => props.onUpdateRequest(index - 1)}> <Edit className='text-warning'/> </i>
-                    <i onClick={() => props.onAuthorDeleted(index - 1)}><Trash2 className='text-danger'/> </i>
+                    <i>
+                        <Edit onClick={() => props.onUpdateRequest(index - 1)} className='text-warning'/>
+                    </i>
+                    <i>
+                        <Trash2 onClick={() => props.onAuthorDeleted(index - 1)} className='text-danger'/>
+                    </i>
                 </Col>
             </Row>
         </li>
