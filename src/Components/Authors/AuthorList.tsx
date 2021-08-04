@@ -12,10 +12,10 @@ type AuthorsListProps = {
 const AuthorList: React.FC<AuthorsListProps> = (props) => {
     const {authors} = props;
     const renderAuthorList = () => {
-        if (authors.length === 0) {
+
+        if (authors.length === 0||authors.length ===  undefined) {
             return;
         }
-
         return authors.map((author: IAuthors, index: number) => {
             return <Author author={author} key={index} index={index + 1}
                            onAuthorDeleted={props.onAuthorDeleted}

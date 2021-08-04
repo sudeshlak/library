@@ -49,7 +49,7 @@ const CreateBook: React.FC<BooksProps> = (props) => {
     }
 
     useEffect(() => {
-        if (!authors) {
+        if (!authors||authors.length===undefined) {
             return;
         }
         const dropDowns: AuthorsInDropDown[] = authors.map(

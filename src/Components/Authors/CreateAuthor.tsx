@@ -29,6 +29,9 @@ const CreateAuthor: React.FC<createAuthorProps> = (props) => {
         setAuthorName(name);
     }
     const isInAuthors = (authorName: string) => {
+        if (authors.length===undefined||authors.length===0){
+            return ;
+        }
         const bAuthors: String[] = authors.map(author => author.name);
         return bAuthors.includes(authorName);
     }

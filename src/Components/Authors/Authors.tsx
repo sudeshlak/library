@@ -5,6 +5,9 @@ import CreateAuthor from "./CreateAuthor";
 import {IAuthors, IBooks} from "../../types/LibraryTypes";
 import React, {useEffect, useState} from "react";
 import Swal from "sweetalert2";
+import {useDispatch, useSelector} from "react-redux";
+import {bindActionCreators} from "redux";
+import {actionCreators} from "../../state";
 
 type AuthorsProps = {
     authors: IAuthors[]
@@ -14,6 +17,10 @@ type AuthorsProps = {
 }
 
 const Authors: React.FC<AuthorsProps> = (props) => {
+    const state:any= useSelector((state)=>state);
+    console.log(state);
+    const dispatch=useDispatch();
+    const {addAuthor,deleteAuthor}=bindActionCreators(actionCreators,dispatch);
     const {setAuthors, authors, books, setBooks} = props;
     const [authorToUpdateIndex, setAuthorToUpdateIndex] = useState<number | null>(null);
     const [formVisible, setFormVisibility] = useState(false);
@@ -56,6 +63,7 @@ const Authors: React.FC<AuthorsProps> = (props) => {
                 const allAuthors: IAuthors[] = authors.slice();
                 allAuthors.splice(index, 1);
                 setAuthors(allAuthors);
+                deleteAuthor(index);
 
                 if (authorToUpdateIndex === index) {
                     setAuthorToUpdateIndex(null);
@@ -112,6 +120,10 @@ const Authors: React.FC<AuthorsProps> = (props) => {
     }
 
     const handleAuthorAdded = (author: IAuthors) => {
+        if (authors.length===undefined||authors.length===0){
+            return ;
+        }
+        addAuthor(author);
         const allAuthors: IAuthors[] = authors.slice();
         allAuthors.push(author);
         setAuthors(allAuthors);

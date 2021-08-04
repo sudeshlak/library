@@ -3,9 +3,11 @@ import Authors from "./Authors/Authors";
 import {IAuthors, IBooks} from "../types/LibraryTypes";
 import React, {useState} from "react";
 import Books from "./Books/Books";
+import {useSelector} from "react-redux";
 
 const LibraryContent: React.FC = () => {
-    const authorsList: IAuthors [] = [{name: 'Author 1'}, {name: 'Author 2'}, {name: 'Author 3'}];
+  const state:any= useSelector((state)=>state);
+    const authorsList: IAuthors [] = [{name:'sudesh'},{name:'lakhsmana'}];
     const [authors, setAuthors] = useState(authorsList);
     const bookList: IBooks[] = [{name: 'book 1', price: 250.60, author: 'Author 1'},
         {

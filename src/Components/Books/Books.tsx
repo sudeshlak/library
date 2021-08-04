@@ -5,6 +5,9 @@ import AddBook from "./AddBook";
 import CreateBooks from "./CreateBooks";
 import {IAuthors, IBooks} from "../../types/LibraryTypes";
 import Swal from "sweetalert2";
+import {useDispatch,useSelector} from "react-redux";
+import {bindActionCreators} from "redux";
+import {actionCreators} from'../../state';
 
 type BooksProps = {
     authors: IAuthors[]
@@ -13,6 +16,11 @@ type BooksProps = {
 }
 
 const Books: React.FC<BooksProps> = (props) => {
+    const state:any= useSelector((state)=>state);
+    console.log(state);
+    const dispatch=useDispatch();
+    const {addBook,deleteBook}=bindActionCreators(actionCreators,dispatch);
+
     const {setBooks, books} = props;
     const [formVisible, setFormVisibility] = useState<false | true>(false);
     const [bookToUpdateIndex, setBookToUpdateIndex] = useState<number | null>(null);
@@ -30,6 +38,7 @@ const Books: React.FC<BooksProps> = (props) => {
     }
 
     const handleBookAdded = (bookAdd: IBooks) => {
+        addBook(bookAdd);
         setBooks([...books, bookAdd]);
         Swal.fire({
             position: 'top-end',
@@ -53,6 +62,7 @@ const Books: React.FC<BooksProps> = (props) => {
             denyButtonText: `NO`,
         }).then((result) => {
             if (result.isConfirmed) {
+                deleteBook(index);
                 const allBooks: IBooks[] = books.slice();
                 allBooks.splice(index, 1);
                 setBooks(allBooks);
